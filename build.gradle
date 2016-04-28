@@ -29,6 +29,8 @@ minecraft {
     version = "${config.version.minecraft}-${config.version.forge}"
     runDir = "run"
 
+    replace "@VERSION@", config.version.mod
+
     mappings = "stable_20"
 }
 
