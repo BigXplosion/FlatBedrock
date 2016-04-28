@@ -1,5 +1,4 @@
 # Ignore Everything
-*
 /*
 /*/
 
@@ -9,7 +8,7 @@
 !/gradle/
 !/gradlew
 !/gradlew.bat
-!/README
+!/README.md
 !/LICENSE
 !/build.properties
 !/build.gradle
