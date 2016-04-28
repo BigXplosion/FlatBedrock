@@ -20,6 +20,8 @@ import com.bigxplosion.flatbedrock.custom.CustomDimensionManager;
 
 public class WorldGenFlatBedrock implements IWorldGenerator {
 
+	public static WorldGenFlatBedrock instance = new WorldGenFlatBedrock();
+
 	protected Map<Integer, CustomDimensionManager.DimensionEntry> dimensions = Maps.newHashMap(CustomDimensionManager.getDimensions());
 
 	@Override
