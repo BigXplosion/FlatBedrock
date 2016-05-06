@@ -21,15 +21,13 @@ public class RetroGenSaveData extends WorldSavedData {
 		super(name);
 	}
 
-	public boolean isGenerationNeeded(ChunkCoord coord, String genID)
-	{
+	public boolean isGenerationNeeded(ChunkCoord coord, String genID) {
 		NBTTagCompound nbt = chunks.get(coord);
 
 		return nbt == null || !nbt.hasKey(genID) || !nbt.getBoolean(genID);
 	}
 
-	public void markChunkRetroGenerated(ChunkCoord coord, String genID)
-	{
+	public void markChunkRetroGenerated(ChunkCoord coord, String genID) {
 		NBTTagCompound nbt = chunks.get(coord);
 
 		if (nbt == null)
@@ -42,25 +40,21 @@ public class RetroGenSaveData extends WorldSavedData {
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbt)
-	{
+	public void readFromNBT(NBTTagCompound nbt) {
 		int size = nbt.getInteger(NBT_SIZE);
 
-		for (int i = 0; i < size; ++i)
-		{
+		for (int i = 0; i < size; ++i) {
 			ChunkCoord coord = new ChunkCoord(nbt.getInteger(i + NBT_LOC_X), nbt.getInteger(i + NBT_LOC_Z));
 			chunks.put(coord, nbt.getCompoundTag(i + NBT_TAG));
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt)
-	{
+	public void writeToNBT(NBTTagCompound nbt) {
 		nbt.setInteger(NBT_SIZE, chunks.size());
 		int index = 0;
 
-		for (ChunkCoord coord : chunks.keySet())
-		{
+		for (ChunkCoord coord : chunks.keySet()) {
 			nbt.setInteger(index + NBT_LOC_X, coord.chunkX);
 			nbt.setInteger(index + NBT_LOC_Z, coord.chunkZ);
 			nbt.setTag(index + NBT_TAG, chunks.get(coord));

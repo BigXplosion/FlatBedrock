@@ -25,23 +25,19 @@ public class WorldGenFlatBedrock implements IWorldGenerator {
 	protected Map<Integer, CustomDimensionManager.DimensionEntry> dimensions = Maps.newHashMap(CustomDimensionManager.getDimensions());
 
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
-	{
+	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (canGenerate(world, chunkX, chunkZ))
 			generateWorld(world, chunkX, chunkZ);
 	}
 
-	public boolean canGenerate(World world, int chunkX, int chunkZ)
-	{
+	public boolean canGenerate(World world, int chunkX, int chunkZ) {
 		return world.getWorldType() != WorldType.FLAT;
 	}
 
-	public void generateWorld(World world, int chunkX, int chunkZ)
-	{
+	public void generateWorld(World world, int chunkX, int chunkZ) {
 		int id = world.provider.getDimension();
 
-		if (dimensions.containsKey(id))
-		{
+		if (dimensions.containsKey(id)) {
 			CustomDimensionManager.DimensionEntry dimension = dimensions.get(id);
 
 			if (dimension.genBottom)
@@ -52,12 +48,10 @@ public class WorldGenFlatBedrock implements IWorldGenerator {
 		}
 	}
 
-	public void retroGenerateWorld(World world, int chunkX, int chunkZ)
-	{
+	public void retroGenerateWorld(World world, int chunkX, int chunkZ) {
 		int id = world.provider.getDimension();
 
-		if (dimensions.containsKey(id))
-		{
+		if (dimensions.containsKey(id)) {
 			CustomDimensionManager.DimensionEntry dimension = dimensions.get(id);
 
 			if (dimension.retroGenBottom)
@@ -68,27 +62,30 @@ public class WorldGenFlatBedrock implements IWorldGenerator {
 		}
 	}
 
-	public void generateTop(World world, int chunkX, int chunkZ, Block block, boolean retro)
-	{
+	public void generateTop(World world, int chunkX, int chunkZ, Block block, boolean retro) {
 		int flag = retro ? 3 : 2;
-		for (int blockX = 0; blockX < 16; blockX++)
-			for (int blockZ = 0; blockZ < 16; blockZ++)
+		for (int blockX = 0; blockX < 16; blockX++) {
+			for (int blockZ = 0; blockZ < 16; blockZ++) {
 				for (int blockY = 126; blockY > 121; blockY--) {
 					BlockPos target = new BlockPos(chunkX * 16 + blockX, blockY, chunkZ * 16 + blockZ);
 					if (world.getBlockState(target).getBlock() == Blocks.BEDROCK)
 						world.setBlockState(target, block.getDefaultState(), flag);
 				}
+			}
+		}
 	}
 
 	public void generateBottom(World world, int chunkX, int chunkZ, Block block, boolean retro)
 	{
 		int flag = retro ? 3 : 2;
-		for (int blockX = 0; blockX < 16; blockX++)
-			for (int blockZ = 0; blockZ < 16; blockZ++)
+		for (int blockX = 0; blockX < 16; blockX++) {
+			for (int blockZ = 0; blockZ < 16; blockZ++) {
 				for (int blockY = 5; blockY > 0; blockY--) {
 					BlockPos target = new BlockPos(chunkX * 16 + blockX, blockY, chunkZ * 16 + blockZ);
 					if (world.getBlockState(target).getBlock() == Blocks.BEDROCK)
 						world.setBlockState(target, block.getDefaultState(), flag);
 				}
+			}
+		}
 	}
 }

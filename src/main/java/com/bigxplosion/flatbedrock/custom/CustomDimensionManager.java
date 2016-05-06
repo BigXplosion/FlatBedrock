@@ -30,8 +30,7 @@ public class CustomDimensionManager {
 	protected static Map<Integer, DimensionEntry> dimensions = Maps.newHashMap();
 	protected static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-	public static void execute()
-	{
+	public static void execute() {
 		if (!doDefaultsExist())
 			createDefaults();
 
@@ -40,76 +39,61 @@ public class CustomDimensionManager {
 		readJSONFiles();
 	}
 
-	public static Map<Integer, DimensionEntry> getDimensions()
-	{
+	public static Map<Integer, DimensionEntry> getDimensions() {
 		return dimensions;
 	}
 
-	public static void addDimensionEntry(DimensionEntry dimension)
-	{
+	public static void addDimensionEntry(DimensionEntry dimension) {
 		dimensions.put(dimension.dimID, dimension);
 	}
 
-	public static boolean doDefaultsExist()
-	{
+	public static boolean doDefaultsExist() {
 		return overworldJSON.exists() && netherJSON.exists();
 	}
 
-	public static boolean doesFileExist(String fileName)
-	{
+	public static boolean doesFileExist(String fileName) {
 		return new File(dimensionsFolder, fileName + ".json").exists();
 	}
 
-	public static void createDefaults()
-	{
-		if (!overworldJSON.exists())
-		{
+	public static void createDefaults() {
+		if (!overworldJSON.exists()) {
 			DimensionEntry overworld = new DimensionEntry(0, false, true, false, false, "minecraft:stone");
 			createJSONFile("overworld", overworld);
 		}
 
-		if (!netherJSON.exists())
-		{
+		if (!netherJSON.exists()) {
 			DimensionEntry nether = new DimensionEntry(-1, true, true, false, false, "minecraft:netherrack");
 			createJSONFile("nether", nether);
 		}
 	}
 
-	public static void createJSONFile(String fileName, DimensionEntry dimension)
-	{
+	public static void createJSONFile(String fileName, DimensionEntry dimension) {
 		File jsonFile = new File(dimensionsFolder, fileName + ".json");
 
-		try
-		{
+		try {
 			Files.createParentDirs(jsonFile);
 			Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(jsonFile)));
 			writer.write(gson.toJson(dimension));
 			writer.close();
 			FMLLog.info("[%s] Creating %s.json file", Reference.MOD_ID, fileName);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			FMLLog.severe("[%s] Failed to create the %s.json file, this could be one of the default files that create on startup or one of the IMC received files, please report this!", Reference.MOD_ID, fileName);
 			e.printStackTrace();
 		}
 	}
 
-	public static void readJSONFiles()
-	{
+	public static void readJSONFiles() {
 		for (File file : dimensionsFolder.listFiles(new JSONFileNameFilter()))
 			readJSON(file);
 	}
 
-	public static void readJSON(File jsonFile)
-	{
+	public static void readJSON(File jsonFile) {
 		DimensionEntry dimension;
 
-		try
-		{
+		try {
 			dimension = gson.fromJson(new FileReader(jsonFile), DimensionEntry.class);
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			FMLLog.severe("[%s] Failed to read the %s file, please report this! This could cause major issues as your settings aren't saved and the world might not generate as you expect! If this was the case you could still try to enable the retro gen in that dimension (but only do this if you really want to keep the world, and also BACKUP)!!!", Reference.MOD_ID, jsonFile.getAbsolutePath().substring(jsonFile.getAbsolutePath().lastIndexOf(File.separator) + 1));
 			e.printStackTrace();
 			return;
@@ -118,8 +102,7 @@ public class CustomDimensionManager {
 		addDimensionEntry(dimension);
 	}
 
-	public static class DimensionEntry
-	{
+	public static class DimensionEntry {
 		public int dimID;
 		public boolean genTop;
 		public boolean genBottom;
@@ -127,8 +110,7 @@ public class CustomDimensionManager {
 		public boolean retroGenBottom;
 		public String fillBlock;
 
-		public DimensionEntry(int dimID, boolean genTop, boolean genBottom, boolean retroGenTop, boolean retroGenBottom, String fillBlock)
-		{
+		public DimensionEntry(int dimID, boolean genTop, boolean genBottom, boolean retroGenTop, boolean retroGenBottom, String fillBlock) {
 			this.dimID = dimID;
 			this.genTop = genTop;
 			this.genBottom = genBottom;
@@ -137,17 +119,14 @@ public class CustomDimensionManager {
 			this.fillBlock = fillBlock;
 		}
 
-		public DimensionEntry()
-		{
+		public DimensionEntry() {
 
 		}
 	}
 
-	public static class JSONFileNameFilter implements FilenameFilter
-	{
+	public static class JSONFileNameFilter implements FilenameFilter {
 		@Override
-		public boolean accept(File dir, String name)
-		{
+		public boolean accept(File dir, String name) {
 			return name.endsWith(".json");
 		}
 	}

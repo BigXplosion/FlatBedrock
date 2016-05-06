@@ -22,14 +22,12 @@ public class FlatBedrock {
 	public static FlatBedrock instance;
 
 	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new RetroActiveWorldGenerator());
 	}
 
 	@Mod.EventHandler
-	public void init(FMLInitializationEvent event)
-	{
+	public void init(FMLInitializationEvent event) {
 		CustomDimensionManager.execute();
 
 		GameRegistry.registerWorldGenerator(new WorldGenFlatBedrock(), 10);
@@ -38,14 +36,12 @@ public class FlatBedrock {
 	}
 
 	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event)
-	{
+	public void postInit(FMLPostInitializationEvent event) {
 
 	}
 
 	@Mod.EventHandler
-	public void handleIMCMessages(FMLInterModComms.IMCEvent event)
-	{
+	public void handleIMCMessages(FMLInterModComms.IMCEvent event) {
 		IMCHandler.processMessages(event.getMessages());
 	}
 }

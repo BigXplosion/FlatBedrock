@@ -21,7 +21,7 @@ buildProps.withReader {
     ext.config = new ConfigSlurper().parse prop
 }
 
-version = "${config.version.mod}"
+version = "${config.version.mod}_${config.version.minecraft}"
 group = "com.bigxplosion.flatbedrock"
 archivesBaseName = "FlatBedrock"
 
