@@ -39,9 +39,9 @@ public class RetroActiveWorldGenerator {
 	@SubscribeEvent
 	public void onChunkLoad(ChunkEvent.Load event)
 	{
-		RetroGenSaveData data = getRetroGenSaveData(event.world);
+		RetroGenSaveData data = getRetroGenSaveData(event.getWorld());
 		ChunkCoord coord = new ChunkCoord(event.getChunk());
-		World world = event.world;
+		World world = event.getWorld();
 		Chunk chunk = event.getChunk();
 
 		for (IRetroGenerator gen : generators)

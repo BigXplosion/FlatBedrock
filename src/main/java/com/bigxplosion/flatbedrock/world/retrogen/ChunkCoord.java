@@ -1,6 +1,6 @@
 package com.bigxplosion.flatbedrock.world.retrogen;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
 
 public class ChunkCoord {
