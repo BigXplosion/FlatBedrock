@@ -24,7 +24,7 @@ public class RetroActiveWorldGenerator {
 	}
 
 	private RetroGenSaveData getRetroGenSaveData(World world) {
-		RetroGenSaveData data = (RetroGenSaveData) world.getPerWorldStorage().loadData(RetroGenSaveData.class, retroGenSaveDataName);
+		RetroGenSaveData data = (RetroGenSaveData) world.getPerWorldStorage().getOrLoadData(RetroGenSaveData.class, retroGenSaveDataName);
 
 		if (data == null) {
 			data = new RetroGenSaveData(retroGenSaveDataName);

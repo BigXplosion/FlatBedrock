@@ -50,7 +50,7 @@ public class RetroGenSaveData extends WorldSavedData {
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt) {
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		nbt.setInteger(NBT_SIZE, chunks.size());
 		int index = 0;
 
@@ -60,5 +60,7 @@ public class RetroGenSaveData extends WorldSavedData {
 			nbt.setTag(index + NBT_TAG, chunks.get(coord));
 			index++;
 		}
+
+		return nbt;
 	}
 }
